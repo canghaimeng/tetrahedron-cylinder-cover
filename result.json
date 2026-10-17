@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "title": "An exact retuning of a 20,000-cylinder tetrahedron cover",
+  "statement": "The closed tetrahedron and normalized cylinder-area functional in the pinned cylinder-covering sources admit a cover by at most 20000 triangular-base cylinders with normalized total area strictly less than 0.499921585997001774. The cover and strict rational area comparison must hold on the entire closed tetrahedron, including its boundary.",
+  "statement_sha256": "727dff25a41651e97885dddf88d6fd4ebe9ba04c13bd6f0baa2e30c06ab45fd8",
+  "proof_status": "ordinary_proof_with_automated_review",
+  "verification_level": "LLM_CHECKED_PROOF",
+  "formalization_status": "not_included",
+  "formalization_scope": "No Lean proof or external kernel receipt for the new bound is included in this package.",
+  "assumptions": [],
+  "comparison_summary": "In the same closed tetrahedron, with summed Euclidean areas of compact triangular perpendicular bases normalized by the minimum projection area sqrt(2), e=13/125 and N=10000 give 20000 cylinders and R_new < 4999213/10000000 < 4999215/10000000 < R_old. R_old is the checked public e=1/10,N=10000 secant instance. The new count and area also improve the displayed OpenAI epsilon=1/2000 realization (16000000 cylinders), whose rigorous area lower bound is 11999999986997/24000000000000. The targeted search cutoff is 2026-10-17, completed at 2026-10-17T05:49:25.841189Z. This comparison refers to the documented checked public corpus, with no exhaustive historical priority or global optimality claim; see ATTRIBUTION.md for competing claims and scope limits.",
+  "source_urls": [
+    "https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/preprints/Finite-angular-cylinder-covers-below-the-half-area-bound-September-27-2026/main.pdf",
+    "https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/preprints/Finite-cylinder-approximation-of-ruled-sets-September-27-2026/main.pdf",
+    "https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/preprints/Slope-field-perturbations-of-the-two-cylinder-covering-September-27-2026/main.pdf",
+    "https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/preprints/Finite-triangular-approximation-of-radial-sweeps-September-27-2026/main.pdf",
+    "https://github.com/shjvandekamp/math/blob/db6e1d89a0637b013a86464bd766c0a5120e454e/topics/cylinder-covering/SECANT-THEOREM.md",
+    "https://github.com/shjvandekamp/math/blob/8b63303107ca07dce2e72ed65b11d3af75540e5f/topics/cylinder-covering/RESULT.md",
+    "https://github.com/supsup/new_math_review/blob/cd6549b24054e6869f480f598f314f263b27e6cf/showcase.md"
+  ],
+  "attribution": "OpenAI supplies the angular construction, secant axes and first-crossing argument. The public shjvandekamp repository supplies the quartic cap, overlap identity and padding theorem. This work supplies the rational parameter refinement and exact finite-area certificates.",
+  "reproduction": {
+    "working_directory": "packet root",
+    "python": "3.12.3",
+    "dependencies": "Python 3.8+ standard library; TeX Live with latexmk for the PDF",
+    "commands": [
+      {
+        "command": "python3 code/reproduce.py",
+        "status": "PASS",
+        "output": "checkers/reproduction_summary.json"
+      },
+      {
+        "command": "python3 code/retuned_secants.py --index 0",
+        "status": "PASS"
+      },
+      {
+        "command": "python3 code/retuned_secants.py --index 19999",
+        "status": "PASS"
+      },
+      {
+        "command": "latexmk -pdf -jobname=paper -interaction=nonstopmode -halt-on-error main.tex",
+        "status": "PASS"
+      }
+    ],
+    "checks": [
+      "all 10000 integer-root summands for each instance",
+      "independent rational Taylor and power sums",
+      "independent overlap zero-polynomial check",
+      "strict comparison with the actual public benchmark and displayed OpenAI instance"
+    ],
+    "coverage": "Universal analytic proof in main.tex; no sampled containment substitute"
+  },
+  "community_review_status": "not_yet_submitted",
+  "comparison_update": "See COMPARISON.md for the submission-preparation source refresh."
+}

@@ -1,0 +1,539 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array,tabularx,microtype}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\usepackage{xurl}
+\hypersetup{colorlinks=true,linkcolor=MidnightBlue,citecolor=MidnightBlue,
+ urlcolor=MidnightBlue,pdftitle={An exact retuning of a 20,000-cylinder tetrahedron cover},
+ pdfauthor={},pdfsubject={Closed-set coverage and exact rational area certificates}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Amin}{A_{\min}}
+\newcommand{\Mstar}{M_*}
+\DeclareMathOperator{\isqrt}{isqrt}
+\allowdisplaybreaks
+\setlength{\emergencystretch}{2em}
+\title{An exact retuning of a\\20,000-cylinder tetrahedron cover}
+\author{}
+\date{17 October 2026}
+\begin{document}
+\maketitle
+\input{sections/status.tex}
+
+\begin{abstract}
+We give an explicit rational parameter choice in the compatible-secant
+construction of van de Kamp, itself based on OpenAI's angular cylinder
+construction. For the closed regular tetrahedron of edge length two,
+20,000 infinite cylinders with compact nondegenerate triangular perpendicular
+bases have total base area, normalized by the minimum projection area,
+strictly less than \(0.4999213\). This improves the checked public
+20,000-cylinder benchmark \(0.499921585997001774\).
+The parameter changes from \(e=1/10\) to \(e=13/125\); the geometric
+family and its padding rule are retained. We reproduce the closed-set
+coverage proof on its full domain \(0<e<1\), and certify the finite area
+directly rather than extending error estimates restricted to \(e\le1/10\).
+Integer square roots and an independent rational Taylor--power-sum
+calculation both separate the new area from the old actual area.
+The contribution is a quantitative specialization with reproducible
+certificates; no optimality or exhaustive priority claim is made.
+\end{abstract}
+
+\section{Statement, model, and comparison}
+All geometry is Euclidean in \(\R^3\). Put \(H=\sqrt2\) and
+\begin{equation}\label{eq:K}
+ K=\{(x,y,Hs):0\le s\le1,\ |x|\le1-s,\ |y|\le s\}.
+\end{equation}
+This is the closed regular tetrahedron with vertices
+\((\pm1,0,0)\) and \((0,\pm1,H)\).
+For a nonzero vector \(v\), a cylinder means \(B+\R v\),
+where \(B\subset v^\perp\) is a compact nondegenerate triangle.
+Let \(\pi_E\) denote orthogonal projection onto a plane \(E\), and define
+\[
+ \Amin(K)=\min_{\dim E=2}|\pi_E K|,\qquad
+ R=\frac{\sum_j |B_j|}{\Amin(K)}.
+\]
+The sum counts each base separately, including overlaps. There is no
+restriction on the axes' tilt angles. The denominator is one common
+minimum projection area, not a different projection area for each cylinder.
+
+\begin{theorem}\label{thm:main}
+The tetrahedron \(K\) admits a cover by a labeled family of \(20{,}000\)
+cylinders of the above kind. With the construction below at
+\(e=13/125\) and \(N=10{,}000\), its normalized total area satisfies
+\begin{equation}\label{eq:newinterval}
+ \frac{4999212211665836198151146}{10^{25}}
+ \le R <
+ \frac{4999212211665836198161146}{10^{25}}
+ <\frac{4999213}{10^7}.
+\end{equation}
+Every point of \(K\), including its boundary, is covered.
+For the published \(e=1/10,\ N=10{,}000\) instance of the same family,
+with actual normalized area \(R_{\mathrm{old}}\), one has
+\begin{equation}\label{eq:strict}
+ R<\frac{4999213}{10^7}<\frac{4999215}{10^7}<R_{\mathrm{old}}.
+\end{equation}
+Consequently \(R<0.499921585997001774\).
+\end{theorem}
+
+OpenAI's angular construction proves a finite triangular-cylinder
+cover below \(1/2\), with the same tetrahedron and normalization
+\cite{openai-angular}. Its displayed theorem uses
+\(m=2\lceil2/\varepsilon^2\rceil\), \(0<\varepsilon\le1/2000\), and
+\[
+ R_{\mathrm{OAI}}=\frac12-\frac{13}{6000}\varepsilon^2+E,\qquad
+ |E|\le2\varepsilon^4.
+\]
+At \(\varepsilon=1/2000\), this is \(16{,}000{,}000\) cylinders.
+The stated remainder implies
+\[
+ R_{\mathrm{OAI}}\ge
+ \frac12-\frac{13}{6000\cdot2000^2}-\frac{2}{2000^4}>0.4999215.
+\]
+Thus Theorem~\ref{thm:main} improves that explicit realization in both
+count and actual area. This comparison is with the displayed source
+instance; it does not bound every possible instance of all four
+OpenAI constructions \cite{openai-angular,openai-ruled,openai-slope,openai-radial}.
+
+Van de Kamp's quartic overlap estimate and finite secant padding yield
+the much stronger \(20{,}000\)-cylinder benchmark
+\cite{vdk-secant,vdk-result}. The published outward interval is
+\[
+ [0.499921585997001674,\,0.499921585997001774].
+\]
+We retain that construction and prove a strict comparison with its
+\emph{actual} finite area. A narrower enclosure of the same number would
+not establish \eqref{eq:strict}.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabularx}{\textwidth}{@{}p{.28\textwidth}rX@{}}
+\toprule
+Instance & Cylinders & Normalized area and comparison status\\
+\midrule
+OpenAI displayed angular instance, 27 Sep.\ 2026
+& \(16{,}000{,}000\) &
+\(\frac12-\frac{13}{6000\cdot2000^2}\pm\frac{2}{2000^4}\);
+source theorem with explicit remainder.\\
+\addlinespace
+van de Kamp, \(e=1/10\), 15 Oct.\ 2026
+& \(20{,}000\) &
+\([0.499921585997001674,\ 0.499921585997001774]\);
+coverage reproduced and area independently recomputed here.\\
+\addlinespace
+This note, \(e=13/125\), 17 Oct.\ 2026
+& \(20{,}000\) &
+\(<0.4999213\); exact enclosure in \eqref{eq:newinterval}.\\
+\bottomrule
+\end{tabularx}
+\caption{Same closed tetrahedron, perpendicular triangular bases, and common
+minimum-projection normalization. This note's verification status is on page 1.}
+\label{tab:comparison}
+\end{table}
+The literature cutoff is 17 October 2026. The checked public numerical
+benchmark is the van de Kamp instance at the revisions in
+Section~\ref{sec:sources}. We do not assert an exhaustive global
+\emph{best-known} result. Section~\ref{sec:limits} records the
+competing-claim audit and its limits.
+
+\section{Normalization and explicit cylinders}
+\begin{lemma}\label{lem:normalization}
+The tetrahedron in \eqref{eq:K} has \(\Amin(K)=H\).
+\end{lemma}
+\begin{proof}
+Its four outward face area vectors are \((0,\pm H,-1)\) and
+\((\pm H,0,1)\).
+For a unit vector \(u\), the forward faces project onto the shadow with
+disjoint interiors, by assigning each line parallel to \(u\) its forward
+endpoint. The area of a projected face is the absolute scalar product
+of its area vector with \(u\). The four area vectors sum to zero,
+so the shadow area is half the sum of their four absolute products:
+\[
+ A(u)=\max(H|u_x|,|u_z|)+\max(H|u_y|,|u_z|).
+\]
+Let \(U=\max(|u_x|,|u_z|/H)\) and \(V=\max(|u_y|,|u_z|/H)\).
+Then \(U^2\ge u_x^2\), \(V^2\ge u_y^2\), and
+\(2UV\ge2u_z^2/H^2=u_z^2\).
+Thus \((U+V)^2\ge1\), so \(A(u)\ge H\).
+The direction \(u=(1,0,0)\) gives equality.
+\end{proof}
+
+This is the equal-partition case of \cite[Sections 1--3]{vdk-secant}.
+We reproduce its proof to make the parameter domain explicit.
+Take any \(0<e<1\) and integer \(N\ge1\). For \(0\le i<N\), define
+\begin{gather}
+ a=\frac1N,\quad d=2a,\quad l_i=-1+\frac{2i}{N},\quad
+ r_i=l_i+d,\quad c_i=\frac{l_i+r_i}{2},\quad I_i=[l_i,r_i],\label{eq:grid}\\
+ G(q)=\frac{1+q^2}{2},\quad D(q)=\frac{1-q^2}{2},\quad
+ C(q)=1+e^2q^2G(q)+\frac9{16}e^4,\label{eq:cap}\\
+ A_i=\frac{1+l_i r_i}{2}=G(c_i)-\frac{a^2}{2},\qquad
+ \Mstar=1+e^2+\frac9{16}e^4,\\
+ K_0=\Mstar\left(e+\frac{e^2}{2}\right)+2e^2,\qquad
+ \delta=\frac{K_0a+\Mstar e^2a^2/2}{1-e},\label{eq:padding}\\
+ M_i=C\bigl(\max(|l_i|,|r_i|)\bigr)+\delta.\label{eq:Mi}
+\end{gather}
+Since \(C\) is even and increasing on \([0,1]\),
+\(M_i=\max_{q\in I_i}C(q)+\delta>0\).
+Use the intercept triangles
+\begin{align}
+ P_i&=\{(0,qt,Ht):q\in I_i,\ 0\le t\le M_i/2\},\\
+ Q_i&=\{(pt,0,H(1-t)):p\in I_i,\ 0\le t\le M_i/2\},
+\end{align}
+and the axes
+\begin{equation}\label{eq:axes}
+ v_i=(1,eA_i,Hec_i),\qquad w_i=(-eA_i,1,Hec_i).
+\end{equation}
+The cylinders are \(P_i+\R v_i\) and \(Q_i+\R w_i\), with bases
+\(B_i^-=\pi_{v_i^\perp}P_i\), \(B_i^+=\pi_{w_i^\perp}Q_i\).
+For example \(P_i\) is the convex hull of
+\((0,0,0)\), \((0,l_iM_i/2,HM_i/2)\), and
+\((0,r_iM_i/2,HM_i/2)\).
+It is a compact nondegenerate triangle because \(dM_i>0\).
+Orthogonal projection is injective on its intercept plane:
+an axis-parallel vector in \(x=0\) must vanish, as the first coordinate
+of \(v_i\) is one. The analogous argument uses \(y=0\) and \(w_i\).
+Both projected triangles remain nondegenerate.
+Projection removes an axis-parallel component, so it preserves the cylinder.
+
+\section{Coverage of the entire closed tetrahedron}
+\subsection{Angular selection and exact membership}
+Fix \(z=(x,y,Hs)\in K\). Its axis-parallel intercept in \(x=0\) is
+\[
+ z-xv_i=(0,y_0,Ht_0),\qquad y_0=y-exA_i,\quad t_0=s-exc_i.
+\]
+Since the first coordinate of \(v_i\) is one, this intercept is unique.
+Thus, including when \(t_0=0\),
+\begin{equation}\label{eq:membership}
+ z\in P_i+\R v_i\ \Longleftrightarrow\
+ 0\le t_0\le M_i/2,\quad l_it_0\le y_0\le r_it_0.
+\end{equation}
+Likewise \(z-yw_j=(x_0,0,H(1-s_0))\), where
+\(s_0=1-s+eyc_j\), \(x_0=x+eyA_j\), so
+\begin{equation}\label{eq:uppermembership}
+ z\in Q_j+\R w_j\ \Longleftrightarrow\
+ 0\le s_0\le M_j/2,\quad l_js_0\le x_0\le r_js_0.
+\end{equation}
+Let \(q_k=-1+2k/N\), \(0\le k\le N\), and
+\(F_k=sq_k+exD(q_k)\).
+Since \(D(-1)=D(1)=0\), we have \(F_0=-s\le y\le s=F_N\).
+Choose the first \(k\in\{1,\ldots,N\}\) with \(F_k\ge y\).
+Then \(F_{k-1}\le y\), including when \(y=F_0\).
+Set \(i=k-1\). The identities
+\[
+ A_i-l_ic_i=D(l_i),\qquad A_i-r_ic_i=D(r_i)
+\]
+convert \(F_{k-1}\le y\le F_k\) to \(l_it_0\le y_0\le r_it_0\).
+As \(r_i-l_i>0\), these inequalities imply \(t_0\ge0\).
+No monotonicity of \(F_k\) is needed.
+
+Apply the same argument to \(E_k=(1-s)q_k-eyD(q_k)\).
+Its endpoints bracket \(x\), since \(|x|\le1-s\). We obtain a cell
+\(j\) with \(s_0\ge0\) and \(l_js_0\le x_0\le r_js_0\).
+If \(t_0=0\), then \(y_0=0\) and \eqref{eq:membership} gives coverage.
+If \(s_0=0\), then \(x_0=0\) and \eqref{eq:uppermembership} does so.
+Assume both are positive before dividing.
+
+\subsection{A weighted identity}
+Set
+\[
+ \rho=2t_0,\quad \sigma=2s_0,\quad q=y_0/t_0\in I_i,\quad
+ p=x_0/s_0\in I_j,\quad X=2x,\quad Y=2y.
+\]
+The intercept equations become
+\begin{equation}\label{eq:intercepts}
+ Y=\rho q+eXA_i,\quad X=\sigma p-eYA_j,\quad
+ \rho+\sigma=2+e(Yc_j-Xc_i).
+\end{equation}
+Let \(\Lambda=1+e^2A_iA_j\).
+The first two equations give
+\(\Lambda X=\sigma p-eA_j\rho q\) and
+\(\Lambda Y=\rho q+eA_i\sigma p\).
+Substitution in the third yields
+\begin{equation}\label{eq:weighted}
+ w_\rho\rho+w_\sigma\sigma=2\Lambda,
+\end{equation}
+where
+\[
+ w_\rho=1-eqc_j+e^2A_j(A_i-qc_i),\qquad
+ w_\sigma=1+epc_i+e^2A_i(A_j-pc_j).
+\]
+The affine function \(L_i(q)=A_i-qc_i\) interpolates
+\(D(l_i),D(r_i)\ge0\), and \(0\le A_i,A_j\le1\).
+All angular variables and centers have absolute value at most one.
+Therefore
+\begin{equation}\label{eq:positive}
+ w_\rho,w_\sigma\ge1-e>0.
+\end{equation}
+
+\subsection{Continuous overlap and finite padding}
+For \(p,q\in[-1,1]\), write
+\[
+ N_0=1+e^2G(p)G(q),\quad A_-=1-epq+e^2G(p)D(q),\quad
+ B_+=1+epq+e^2G(q)D(p).
+\]
+The overlap certificate of \cite{vdk-secant} is
+\begin{align}
+ &A_-C(q)+B_+C(p)-2N_0 \nonumber\\
+ &\quad=\frac{e^2}{2}
+ \left(p^2-q^2+\frac{epq(1+p^2+q^2)}2\right)^2 \nonumber\\
+ &\qquad+e^4\left[
+ G(p)G(q)\{p^2D(p)+q^2D(q)\}
+ +\frac{9-p^2q^2(1+p^2+q^2)^2}{8}\right]\label{eq:overlap}\\
+ &\qquad+\frac{9e^6}{16}\{G(p)D(q)+G(q)D(p)\}.\nonumber
+\end{align}
+To verify it directly, put \(\Delta=p^2-q^2\), \(S=1+p^2+q^2\).
+Multiplication of the left side gives
+\begin{align*}
+ &\frac{e^2\Delta^2}{2}+\frac{e^3pq\Delta S}{2}\\
+ &\quad+e^4\left[\frac98+G(p)G(q)\{p^2D(p)+q^2D(q)\}\right]
+ +\frac{9e^6}{16}\{G(p)D(q)+G(q)D(p)\}.
+\end{align*}
+Completing the square proves \eqref{eq:overlap}.
+All terms on its right are nonnegative:
+\(G,D\ge0\), \(p^2q^2\le1\), and \(S\le3\).
+
+For the secant perturbation, put \(b=q-c_i\), so \(|b|\le a\). Then
+\[
+ L_i(q)=D(q)-E_i,\quad E_i=\frac{a^2-b^2}{2},\quad
+ 0\le E_i\le\frac{a^2}{2},\quad
+ |A_i-G(q)|\le|c_i|a+a^2\le a.
+\]
+The last inequality uses \(|c_i|+a\le1\). The corresponding statements
+hold for \(p\in I_j\).
+Using \(D\le1/2\) and \(G,A_i,A_j\le1\), we get
+\begin{align}
+ |w_\rho-A_-|,\ |w_\sigma-B_+|&\le ea+\frac{e^2}{2}(a+a^2),\label{eq:weightloss}\\
+ |\Lambda-N_0|&\le2e^2a.\label{eq:detloss}
+\end{align}
+For example the quadratic part of the first bound follows from
+\[
+ A_jL_i(q)-G(p)D(q)=(A_j-G(p))D(q)-A_jE_i,
+\]
+and its linear part is at most \(e|q||p-c_j|\le ea\).
+Changing the two factors \(A_i,A_j\) one at a time proves
+\eqref{eq:detloss}.
+Since \(0<C\le\Mstar\), equations
+\eqref{eq:overlap}--\eqref{eq:detloss} imply
+\[
+ w_\rho C(q)+w_\sigma C(p)-2\Lambda\ge-2K_0a-\Mstar e^2a^2.
+\]
+But the definition of \(\delta\) and \eqref{eq:positive} give
+\[
+ (w_\rho+w_\sigma)\delta\ge2(1-e)\delta=2K_0a+\Mstar e^2a^2.
+\]
+As \(M_i\ge C(q)+\delta\) and \(M_j\ge C(p)+\delta\), it follows that
+\begin{equation}\label{eq:capbudget}
+ w_\rho M_i+w_\sigma M_j\ge2\Lambda.
+\end{equation}
+If both cylinders missed \(z\), their angular membership conditions
+would already hold, forcing \(\rho>M_i\) and \(\sigma>M_j\).
+The positive weights would contradict \eqref{eq:weighted}
+and \eqref{eq:capbudget}.
+
+\begin{proposition}\label{prop:coverage}
+For every \(0<e<1\) and integer \(N\ge1\), these \(2N\) cylinders cover
+all of the closed tetrahedron \(K\).
+\end{proposition}
+All selection and membership inequalities were closed, with zero radii
+handled before division. Thus the proof includes vertices, faces, edges,
+grid nodes, and the interface between families. No sampling is used.
+
+\section{Area and exact arithmetic certificates}
+Each intercept triangle has physical area \(HdM_i^2/8\).
+Projection multiplies area by the absolute scalar product of the
+intercept-plane and projection-plane unit normals, namely
+\(1/\sqrt{Z_i}\), where
+\[
+ Z_i=|v_i|^2=|w_i|^2=1+e^2(A_i^2+2c_i^2).
+\]
+The two families contribute equally. Lemma~\ref{lem:normalization} gives
+\begin{equation}\label{eq:area}
+ R(e,N)=\frac1{2N}\sum_{i=0}^{N-1}\frac{M_i^2}{\sqrt{Z_i}}.
+\end{equation}
+This exact identity holds for \(0<e<1\). It does not use the source's
+later integral approximation, stated only for \(e\le1/10\).
+
+\subsection{Integer square-root enclosures}
+Take \(N=10{,}000\), \(e=13/125\). The padding is exactly
+\[
+ \delta=\frac{161414920845251281}{10937500000000000000000}.
+\]
+Let \(S=10^{25}\), \(b_i=M_i^2/(2N)\), and express
+\(b_i^2/Z_i=u_i/v_i\) as a positive rational number. Define
+\[
+ k_i=\isqrt\left(\left\lfloor S^2u_i/v_i\right\rfloor\right).
+\]
+Here \(\isqrt(n)\) is the greatest nonnegative integer whose square is
+at most \(n\). The integer inequalities
+\[
+ k_i^2v_i\le S^2u_i<(k_i+1)^2v_i
+\]
+give \(k_i/S\le b_i/\sqrt{Z_i}<(k_i+1)/S\).
+The implementation checks them for every cell using exact integers.
+It obtains
+\begin{center}\small
+\begin{tabular}{@{}crr@{}}
+\toprule
+\(e\) & \(\sum_i k_i\) & \(\sum_i(k_i+1)\)\\
+\midrule
+\(13/125\) & \(4999212211665836198151146\) & \(4999212211665836198161146\)\\
+\(1/10\) & \(4999215859970016769600378\) & \(4999215859970016769610378\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+The first row proves \eqref{eq:newinterval}; the second proves
+\begin{equation}\label{eq:oldinterval}
+ \frac{4999215859970016769600378}{10^{25}}\le R_{\mathrm{old}}<
+ \frac{4999215859970016769610378}{10^{25}}.
+\end{equation}
+Comparison \eqref{eq:strict} now follows by integer arithmetic.
+The generator and certificate are \path{code/retuned_secants.py}
+and \path{checkers/retuned_certificate.json}.
+
+\subsection{An independent Taylor--power-sum check}
+A second implementation does not import the constructor, use integer
+square roots, or read the first certificate.
+Reflection sends cell \(i\) to \(N-1-i\), negating \(c_i\) and preserving
+\(A_i,M_i,Z_i\). Since \(N=10{,}000\) is even and zero is a node, exactly
+half the cells are positive. For \(1\le k\le5000\), put
+\begin{gather*}
+ q=\frac{k}{5000},\quad c=\frac{2k-1}{10000},\quad
+ A=\frac12\left(1+\frac{k(k-1)}{25000000}\right),\\
+ M=1+\frac{e^2}{2}(q^2+q^4)+\frac9{16}e^4+\delta,\qquad
+ z=e^2(A^2+2c^2).
+\end{gather*}
+Thus \(R(e,10000)=\frac1{10000}\sum_{k=1}^{5000}M^2(1+z)^{-1/2}\).
+Define
+\[
+ T_4(z)=1-\frac z2+\frac{3z^2}{8}-\frac{5z^3}{16}+\frac{35z^4}{128},
+ \qquad T_5(z)=T_4(z)-\frac{63z^5}{256}.
+\]
+The \(j\)-th derivative of \((1+z)^{-1/2}\) has sign \((-1)^j\) on
+\([0,\infty)\). Taylor's theorem with remainder gives
+\(T_5(z)\le(1+z)^{-1/2}\le T_4(z)\) for \(z\ge0\).
+The weighted sums are polynomials in \(k\) with rational coefficients.
+
+For \(S_j(m)=\sum_{k=1}^m k^j\), telescoping
+\((k+1)^{j+1}-k^{j+1}\) gives
+\[
+ S_0(m)=m,\qquad
+ S_j(m)=\frac{(m+1)^{j+1}-1-
+ \sum_{h=0}^{j-1}\binom{j+1}{h}S_h(m)}{j+1}.
+\]
+Exact polynomial multiplication and this recurrence produce
+\begin{align*}
+ 0.499921221156277387&\le R(13/125,10000)\le0.499921221578204204,\\
+ 0.499921585990560669&\le R(1/10,10000)\le0.499921586275233398.
+\end{align*}
+These are outward-rounded decimal intervals; they independently prove
+\eqref{eq:strict}. The unrounded fractions are in
+\path{checkers/power_sum_bounds.json}; the implementation is
+\path{checkers/check_retuned.py}.
+Either certificate, together with Proposition~\ref{prop:coverage} and
+the nondegeneracy argument, proves Theorem~\ref{thm:main}.
+
+\section{Reproducibility and proof dependencies}\label{sec:reproduce}
+The package uses Python 3.8 or later and only its standard library;
+the recorded runs used Python 3.12.3. No random seed, floating-point
+arithmetic, network connection, or stored cylinder list is needed.
+From the directory containing this paper, run:
+\begin{verbatim}
+python3 code/reproduce.py
+python3 code/retuned_secants.py --index 0
+python3 code/retuned_secants.py --index 19999
+latexmk -pdf -jobname=paper -interaction=nonstopmode main.tex
+\end{verbatim}
+The first command recomputes both certificates, checks the archived
+outputs, and checks the overlap identity with the separate reviewer's
+exact polynomial implementation. It also checks the rational comparison
+with the displayed OpenAI instance. Failure gives a nonzero exit code.
+These computations complement the universal geometric proof.
+
+The indexed generator returns rational data in coordinates \((x,y,z/H)\),
+whose physical metric is \(\operatorname{diag}(1,1,2)\).
+A perpendicular vertex is computed by
+\(P\mapsto P-\langle P,v\rangle v/\langle v,v\rangle\).
+Indices \(0,\ldots,9999\) designate the lower family;
+\(10000,\ldots,19999\) designate the upper family.
+These formulas specify all triangles without a large coordinate file.
+
+For a later formalization, the dependency order is:
+projection minimum; triangle construction and injective projection;
+exact membership and first crossing; positive weighted-radius identity;
+continuous polynomial identity; secant perturbation and padding;
+closed-body coverage; area formula; rational certificates; strict comparison.
+All hypotheses are \(N\in\mathbb Z_{\ge1}\), \(0<e<1\), and the displayed
+definitions, specialized to \(N=10000,e=13/125\) for the numerical theorem.
+No Lean theorem for this new instance has been kernel checked here.
+
+\section{Source audit, attribution, and limits}\label{sec:limits}
+\subsection{Pinned sources and dated comparison}\label{sec:sources}
+The OpenAI sources are pinned at
+\path{1581d4cbdd69a0faf34b2089614fe2a814316a6a}.
+The reused van de Kamp manuscript \cite{vdk-secant} is pinned at
+\path{db6e1d89a0637b013a86464bd766c0a5120e454e}.
+The later inspected topic revision is
+\path{8b63303107ca07dce2e72ed65b11d3af75540e5f},
+dated 15 October 2026, 18:28:10 UTC. Its result note
+\cite{vdk-result} retains the \(e=1/10\) numerical benchmark.
+Public URLs, dates, source digests, and the detailed comparison are in
+\path{ATTRIBUTION.md}; \path{result.json} records the exact accepted claim.
+
+The minimum projection formula, compatible secant axes, and shared-side
+first crossing come from OpenAI's angular construction.
+The quartic cap, overlap identity, and finite padding come from van de Kamp.
+This note changes the rational parameter and supplies direct exact
+finite-sum certificates. It claims no new geometric family or quartic
+theorem, and retains attribution for all inherited arguments.
+
+\subsection{Competing claims and remaining uncertainty}
+The checked \(20{,}000\)-cylinder public benchmark is recomputed in
+\eqref{eq:oldinterval}. The later repository reports Lean verification
+of its own construction; no local Lean rebuild was performed, and
+that report is not a premise of this note.
+
+A public review by Lattice, with a check attributed there to Fixpoint,
+reports a \(1{,}000{,}000\)-cylinder instance and guaranteed saving at least
+\(2959/5187500000000\) below \(1/2\) \cite{lattice}.
+Its count exceeds the present budget, and its stated upper bound is
+larger than the checked benchmark. The same page mentions counts
+\(933{,}156\) and \(929{,}752\) near the edge of a sufficient parameter
+window; these also exceed \(20{,}000\).
+This is a scope and reported-bound comparison, not a verification of
+every claim on that page.
+
+The targeted search and inspected revisions did not identify a stronger
+published same-scope numerical bound by the cutoff.
+Search completeness, unindexed results, and unrestricted comparisons
+with every alternative source recipe remain unresolved.
+Thus \emph{strongest checked public benchmark} refers only to the
+documented corpus; neither global optimality nor an unqualified
+\emph{best-known} result is asserted.
+
+The source's integral-error bound and released constructor require
+\(e\le1/10\). Neither is used at \(e=13/125\); coverage is proved for
+\(0<e<1\), and the finite area is evaluated directly.
+The new tilt exceeds the old example's tilt, so comparisons that also
+fix the old angle budget do not transfer to this instance.
+Optimality over parameters, caps, partitions, or all cylinder covers
+is not claimed.
+
+\paragraph{Verification and authorship disclosure.}
+The proof and programs were prepared in an AI-assisted research workflow,
+with independent mathematical criticism and separately implemented
+arithmetic checks. Computational certificates complement the universal
+geometric proof; they do not replace it.
+The verification level is on page 1 and in \path{result.json}.
+No human authorship, referee review, or new Lean certification is assigned
+or implied.
+
+\begingroup
+\small\raggedright
+\bibliographystyle{plain}
+\bibliography{references}
+\endgroup
+\end{document}

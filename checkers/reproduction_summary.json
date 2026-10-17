@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "python": "3.12.3",
+  "arithmetic": "integer and rational only",
+  "overlap_polynomial_nonzero_coefficients": 0,
+  "cells_checked_per_instance": 10000,
+  "instances": [
+    "13/125",
+    "1/10"
+  ],
+  "candidate_upper": "2499606105832918099080573/5000000000000000000000000",
+  "baseline_lower": "2499607929985008384800189/5000000000000000000000000",
+  "comparison": "R_new < 4999213/10^7 < 4999215/10^7 < R_old",
+  "openai_displayed_epsilon": "1/2000",
+  "openai_displayed_cylinder_count": 16000000,
+  "openai_displayed_area_lower": "11999999986997/24000000000000",
+  "openai_displayed_area_upper": "11999999987003/24000000000000",
+  "coverage_method": "universal analytic proof in main.tex; no sampling",
+  "proof_status_reference": "result.json; computational checks complement the universal proof"
+}
