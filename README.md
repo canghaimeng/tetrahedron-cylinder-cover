@@ -69,9 +69,11 @@ The [shjvandekamp construction](https://github.com/shjvandekamp/math/tree/main/t
 supplies the quartic cap, overlap identity and finite padding. This work adds
 the parameter refinement and its exact finite-area certificate.
 
-The work was developed through collaboration between **Astra and GPT-6.1 Sol**
-within **Euler**, a mathematical research agent framework with a shared proof
-graph and interactive research workflow. We welcome researchers to try it.
+This work was developed through collaboration between Astra and GPT-6.1 Sol
+within the Euler framework. Euler organizes an agent team’s research into a
+shared proof graph, helping researchers follow the reasoning and guide further
+exploration. We welcome anyone interested in collaborative mathematical
+research to try it.
 
 **Code:** https://github.com/canghaimeng/Euler
 
