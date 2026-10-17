@@ -50,6 +50,7 @@
     ],
     "coverage": "Universal analytic proof in main.tex; no sampled containment substitute"
   },
-  "community_review_status": "not_yet_submitted",
-  "comparison_update": "See COMPARISON.md for the submission-preparation source refresh."
+  "community_review_status": "submitted",
+  "comparison_update": "See COMPARISON.md for the submission-preparation source refresh.",
+  "community_review_url": "https://github.com/shjvandekamp/math/issues/5"
 }
